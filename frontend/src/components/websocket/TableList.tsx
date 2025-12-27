@@ -1,30 +1,31 @@
 type TableListProps = {
-  messages: string[];
+  messages: chatMessagesType[];
+  userId: string;
 };
 
-const TableList = ({ messages }: TableListProps) => {
+const TableList = ({ messages, userId }: TableListProps) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full table-auto bg-white border-collapse shadow-md rounded-lg">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="py-2 px-4 text-left text-sm font-semibold text-gray-700">Messages</th>
-          </tr>
-        </thead>
-        <tbody>
-          {messages.length === 0 ? (
-            <tr>
-              <td className="py-2 px-4 text-center text-sm text-gray-500">No messages</td>
-            </tr>
-          ) : (
-            messages.map((el, i) => (
-              <tr key={`${el}-${i}`} className="border-t hover:bg-gray-50">
-                <td className="py-2 px-4 text-sm text-gray-700">{el}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+    <div className="overflow-y-auto">
+      {messages.length === 0 ? (
+        <div className="text-center text-sm text-gray-500">
+          No messages
+        </div>
+      ) : (
+        messages.map((el, i) => (
+          <div
+            key={`${el["id"]}-${i}`}
+            className={`flex ${userId === el["user"] ? "justify-end" : "justify-start"} py-2`}
+          >
+            <div
+              className={`max-w-3/4 p-3 text-sm rounded-lg ${
+                userId === el["user"] ? "bg-green-400 text-white" : "bg-gray-100 text-gray-700"
+              }`}
+            >
+              {el["message"]}
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };
