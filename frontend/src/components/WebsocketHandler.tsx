@@ -40,6 +40,7 @@ const WebsocketHandler = () => {
             const notAddedIds = data.messages.filter(
               (el) => !allIds.has(el.id)
             );
+            
             return [...notAddedIds, ...prev];
           });
           break;
@@ -76,7 +77,7 @@ const WebsocketHandler = () => {
       <h3 className="text-2xl font-semibold text-center text-gray-800 mb-4">
         Your ID: <span className="font-bold">{userId}</span>
       </h3>
-      
+
       <div className="mb-4">
         <MainInput
           setMessage={setMessage}
@@ -84,7 +85,7 @@ const WebsocketHandler = () => {
           sendMessage={handleSendMessage}
         />
       </div>
-      
+
       <div className="mt-4">
         {connected ? (
           <TableList messages={messages} userId={userId} />
